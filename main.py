@@ -1,11 +1,10 @@
-from flask import Flask, request, make_response
+from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
-@app.route("/factorial/<n>", methods = ['POST'])
+@app.route("/factorial/<n>")
 def factorial(n=None):
-    if request.method == 'POST':
-        n = request.args.get() 
+        n = int(n)
         factorial = 1    
         if n < 0:    
             print(" Factorial does not exist for negative numbers")    
@@ -14,7 +13,8 @@ def factorial(n=None):
         else:    
             for i in range(1,n + 1):    
                 factorial = factorial*i    
-        return make_response(factorial)
+
+        return render_template('a.html', n=factorial)
 
 
 if __name__ == "__main__":
