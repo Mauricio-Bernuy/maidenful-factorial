@@ -1,20 +1,22 @@
 from flask import Flask, request, render_template
+import math
+
+from timeit import default_timer as timer
 
 app = Flask(__name__)
 
 @app.route("/factorial/<n>")
 def factorial(n=None):
         n = int(n)
-        factorial = 1    
-        if n < 0:    
-            print(" Factorial does not exist for negative numbers")    
-        elif n == 0:    
-            print("The factorial of 0 is 1")    
-        else:    
-            for i in range(1,n + 1):    
-                factorial = factorial*i    
+        start = timer()
 
-        return render_template('a.html', n=factorial)
+        factorial = math.factorial(n) # uses a c funcion, faster
+
+        end = timer()
+
+        time = end-start
+
+        return render_template('a.html', n=factorial, t = time)
 
 
 if __name__ == "__main__":
